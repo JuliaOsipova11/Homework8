@@ -1,17 +1,12 @@
-﻿
-//Задание 1. Задайте двумерный массив. Напишите программу, которая поменяет местами первую и последнюю строку массива.
-
-//Например, задан массив:
-//1 4 7 2
-//5 9 2 3
-//8 4 2 4
-
-//В итоге получается вот такой массив:
-//8 4 2 4
-//5 9 2 3
-//1 4 7 2
-
-//РЕАЛИЗУЕМ МЕТОД ПОИНТЕРЕСНЕЕ ОН БУДЕТ МЕНЯТЬ ЛЮБУЮ С ЛЮБОЙ СТРОКИ
+﻿// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// В итоге получается вот такой массив:
+// 7 4 2 1
+// 9 5 3 2
+// 8 4 4 2
 
 // int[,] Create2DRandomArray(int colums, int rows, int minValue, int maxValue)
 // {
@@ -42,25 +37,24 @@
 //     Console.WriteLine();
 // }
 
-// int[,] ChangeRows (int[,] array, int row1, int row2)
+// int[,] OrderArrayLines(int[,] array)
 // {
-//     row1--;
-//     row2--;
-//     if (row1 > array.GetLength(0) || row2 > array.GetLength(0) || row1 < 0 || row2 < 0)
+//     for (int i = 0; i < array.GetLength(0); i++)
+//   {
+//     for (int j = 0; j < array.GetLength(1); j++)
 //     {
-//     Console.WriteLine("Invalid rows");
-//     return array;
-//     }
-//     else
-//     {
-//         for (int j = 0; j < array.GetLength(1); j++)
+//       for (int k = 0; k < array.GetLength(1) - 1; k++)
+//       {
+//         if (array[i, k] < array[i, k + 1])
 //         {
-//             int temp = array[row1, j];
-//             array[row1, j] = array[row2, j];
-//             array[row2, j] = temp;
+//           int temp = array[i, k + 1];
+//           array[i, k + 1] = array[i, k];
+//           array[i, k] = temp;
 //         }
+//       }
 //     }
-//     return array;
+//   }
+//   return array;
 // }
 
 // Console.WriteLine("Input number of rows: ");
@@ -71,31 +65,22 @@
 // int minValue = Convert.ToInt32(Console.ReadLine());
 // Console.WriteLine("Input max value of array element");
 // int maxValue = Convert.ToInt32(Console.ReadLine());
-// Console.WriteLine("Input number of first row to change: ");
-// int row1 = Convert.ToInt32(Console.ReadLine());
-// Console.WriteLine("Input number of second row to change: ");
-// int row2 = Convert.ToInt32(Console.ReadLine());
+
 
 // int[,] myArray = Create2DRandomArray(columns, rows, minValue, maxValue);
 // Show2DArray(myArray);
-// myArray = ChangeRows(myArray, row1, row2);
+// OrderArrayLines(myArray);
 // Show2DArray(myArray);
 
-//Задание 2. Задайте двумерный массив. Напишите программу, которая заменяет строки на столбцы. В случае, если это невозможно, программа должна вывести сообщение для пользователя.
+// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 
-//Например, задан массив:
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// 5 2 6 7
 
-//1 4 7 2
-//5 9 2 3
-//8 4 2 4
-//5 2 6 7
-
-//В итоге получается вот такой массив:
-
-//1 5 8 5
-//4 9 4 2
-//7 2 2 6
-//2 3 4 7
+// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
 // int[,] Create2DRandomArray(int colums, int rows, int minValue, int maxValue)
 // {
@@ -106,12 +91,12 @@
 //         for (int j = 0; j < colums; j++)
 //         {
 //             newArray[i, j] = new Random().Next(minValue, maxValue+1);
-
 //         }
 //     }
 
 //     return newArray;
 // }
+
 
 // void Show2DArray(int[,] array)
 // {
@@ -126,27 +111,32 @@
 //     Console.WriteLine();
 // }
 
-// int[,] RowsToColumns(int[,] array)
-// {
-//     if(array.GetLength(0) != array.GetLength(1))
+// int GetRowNumber (int [,] array)
 //     {
-//         Console.WriteLine("Row and column count mismatch");
-//         return array;
-//     }
-//     else
-//     {
-//         for (int i = 0; i < array.GetLength(0) - 1; i++)
+//       int row = 0;
+//       int minsum = 0;
+//       for (int i = 0; i < array.GetLength(1); i++)
+//       {
+//         minsum = minsum + array[0,i];
+//       }
+
+//       for (int i = 1; i < array.GetLength(0); i++)
+//       {
+//         int sum = 0;
+//         for (int j = 0; j < array.GetLength(1); j++)
 //         {
-//             for (int j = i + 1; j < array.GetLength(1); j++)
-//             {
-//                 int temp = array[i, j];
-//                 array[i,j] = array[j,i];
-//                 array[j,i] = temp;
-//             }
+//           sum = sum + array[i,j];
 //         }
+//         if (minsum > sum)
+//         {
+//           minsum = sum;
+//           row = i;
+//         }
+//       }
+//       return row;
 //     }
-//     return array;
-// }
+
+ 
 
 // Console.WriteLine("Input number of rows: ");
 // int rows = Convert.ToInt32(Console.ReadLine());
@@ -157,83 +147,153 @@
 // Console.WriteLine("Input max value of array element");
 // int maxValue = Convert.ToInt32(Console.ReadLine());
 
-// int[,] array = Create2DRandomArray(columns, rows, minValue, maxValue);
-// Show2DArray(array);
-// Show2DArray(RowsToColumns(array));
 
-//Задание 3. Из двумерного массива целых чисел удалить строку и столбец, на пересечении которых расположен наименьший элемент.
-// то есть удаляем и строку и столбец в которой находится этот элемент.
+// int[,] myArray = Create2DRandomArray(columns, rows, minValue, maxValue);
+// Show2DArray(myArray);
+// GetRowNumber(myArray);
+// Console.WriteLine("Строка с наименьшей суммой - {GetRowNumber(myArray)+1}");
 
-int[,] Create2DRandomArray(int colums, int rows, int minValue, int maxValue)
-{
-    int[,] newArray = new int[rows, colums];
+// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Например, даны 2 матрицы:
+// 2 4 | 3 4
+// 3 2 | 3 3
+// Результирующая матрица будет:
+// 18 20
+// 15 18
 
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < colums; j++)
-        {
-            newArray[i, j] = new Random().Next(minValue, maxValue+1);
-
-        }
-    }
-
-    return newArray;
-}
-
-void Show2DArray(int[,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            Console.Write(array[i, j] + " ");
-        }
-        Console.WriteLine();
-    }
-    Console.WriteLine();
-}
-
-int[,] FindMinNum(int[,] array)
-{
-    int minNum = array[0, 0];
-    int minI = 0;
-    int minJ = 0;
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            if (array[i, j] < minNum)
-            {
-                minNum = array[i, j];
-                minI = i;
-                minJ = j;
-            }
-
-        }
-    }
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        array[i, minJ] = 0;
-    }
-    for (int j = 0; j < array.GetLength(1); j++)
-    {
-        array[minI, j] = 0;
-    }
-    return array;
-}
+// Console.Write("Input number of rows 1: ");
+// int rowsA = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Input number of columns 1: ");
+// int columnsA = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Input number of rows 2: ");
+// int rowsB = Convert.ToInt32(Console.ReadLine());
+// Console.Write("Input number of columns 2: ");
+// int columnsB = Convert.ToInt32(Console.ReadLine());
 
 
+//     int[,] A = GetArray(rowsA, columnsA, 0, 10);
+//     int[,] B = GetArray(rowsB, columnsB, 0, 10);
+//     Show2DArray(A);
+//     Console.WriteLine();
+//     Show2DArray(B);
+//     Console.WriteLine();
+//     Show2DArray(GetMultiplicationMatrix(A,B));
 
-Console.WriteLine("Input number of rows: ");
-int rows = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input number of colums: ");
-int columns = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input minimal value of array element");
-int minValue = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input max value of array element");
-int maxValue = Convert.ToInt32(Console.ReadLine());
+//     int[,] GetArray(int m, int n, int min, int max)
+//     {
+//       int[,] result = new int[m, n];
+//     for (int i = 0; i < m; i++)
+//     {
+//       for (int j = 0; j < n; j++)
+//       {
+//         result[i, j] = new Random().Next(min, max + 1);
+//       }
+      
+//     }
+//       return result;
+//     }
 
-int[,] myArray = Create2DRandomArray(columns, rows, minValue, maxValue);
-Show2DArray(myArray);
-Console.WriteLine();
-Show2DArray(FindMinNum(myArray));
+//     void Show2DArray(int[,] inArray)
+//     {
+//      for (int i = 0; i < inArray.GetLength(0); i++)
+//      {
+//        for (int j = 0; j < inArray.GetLength(1); j++)
+//        {
+//          Console.Write($"{inArray[i, j]} ");
+//        }
+//        Console.WriteLine();
+//      }
+//     }
+
+//     int [,] GetMultiplicationMatrix(int[,] arrayA, int[,] arrayB)
+//     {
+//       int[,] arrayC = new int[arrayA.GetLength(0), arrayB.GetLength(1)];
+//       for (int i = 0; i < arrayA.GetLength(0); i++)
+//       {
+//         for (int j = 0; j < arrayB.GetLength(1); j++)
+//         {
+//           for (int k = 0; k < arrayA.GetLength(1); k++)
+//           {
+//             arrayC[i, j] += arrayA[i, k] * arrayB[k, j];
+//           }
+//         }
+//       }
+//       return arrayC;
+//     }
+
+// Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+// Массив размером 2 x 2 x 2
+// 66(0,0,0) 25(0,1,0)
+// 34(1,0,0) 41(1,1,0)
+// 27(0,0,1) 90(0,1,1)
+// 26(1,0,1) 55(1,1,1)
+
+// Console.WriteLine("Input array size X x Y x Z:");
+// int x = InputNumbers("Input X: ");
+// int y = InputNumbers("Input Y: ");
+// int z = InputNumbers("Input Z: ");
+// Console.WriteLine("");
+
+// int[,,] array3D = new int[x, y, z];
+// CreateArray(array3D);
+// WriteArray(array3D);
+
+// int InputNumbers(string input)
+// {
+//   Console.Write(input);
+//   int output = Convert.ToInt32(Console.ReadLine());
+//   return output;
+// }
+
+// void WriteArray (int[,,] array3D)
+// {
+//   for (int i = 0; i < array3D.GetLength(0); i++)
+//   {
+//     for (int j = 0; j < array3D.GetLength(1); j++)
+//     {
+//       Console.Write($"X({i}) Y({j}) ");
+//       for (int k = 0; k < array3D.GetLength(2); k++)
+//       {
+//         Console.Write( $"Z({k})={array3D[i,j,k]}; ");
+//       }
+//       Console.WriteLine();
+//     }
+//     Console.WriteLine();
+//   }
+// }
+
+// void CreateArray(int[,,] array3D)
+// {
+//   int[] temp = new int[array3D.GetLength(0) * array3D.GetLength(1) * array3D.GetLength(2)];
+//   int  number;
+//   for (int i = 0; i < temp.GetLength(0); i++)
+//   {
+//     temp[i] = new Random().Next(10, 100);
+//     number = temp[i];
+//     if (i >= 1)
+//     {
+//       for (int j = 0; j < i; j++)
+//       {
+//         while (temp[i] == temp[j])
+//         {
+//           temp[i] = new Random().Next(10, 100);
+//           j = 0;
+//           number = temp[i];
+//         }
+//           number = temp[i];
+//       }
+//     }
+//   }
+//   int count = 0; 
+//   for (int x = 0; x < array3D.GetLength(0); x++)
+//   {
+//     for (int y = 0; y < array3D.GetLength(1); y++)
+//     {
+//       for (int z = 0; z < array3D.GetLength(2); z++)
+//       {
+//         array3D[x, y, z] = temp[count];
+//         count++;
+//       }
+//     }
+//   }
+// }
